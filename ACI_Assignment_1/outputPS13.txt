@@ -1,0 +1,73 @@
+ROUTING SUMMARY (latency-optimal deterministic paths unless disconnected)
+SOURCE INPUT: C:\Users\suksarkar.CORP\Documents\sem2 projects\DRL\inputPS13.txt
+========================================================================
+Case 1
+Best Path: 0 → 4
+Minimum Latency: 2
+
+Case 2
+Best Path: 0 → 3
+Minimum Latency: 3
+
+========================================================================
+(a) PEAS for the routing agent
+========================================================================
+
+Performance measure: minimise end-to-end transmission latency on the delivered path s→t; secondary metrics include iterations-to-optimum and stability of the recommended walk.
+Environment: dynamic undirected latency graph; source/destination vary per evaluator file; artificial ants act in parallel each macro-iteration.
+Actuators: commit ordered router sequences; apply evaporation/deposit pheromone operators on traversed edges.
+Sensors: incident neighbour IDs, per-link latency, stored τ values, and heuristic η=1/latency derived from sensed weights.
+
+========================================================================
+Case 1 — Dijkstra (deterministic shortest path)
+========================================================================
+Best Path: 0 → 4
+Minimum Latency: 2
+
+--- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5), explore_prob=0.05 ---
+Best Path: 0 → 4
+Minimum Latency (best found): 2
+First iteration where best-so-far reached Dijkstra optimum: 0
+Iteration of global best update: 0
+
+--- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3), explore_prob=0.05 ---
+Best Path: 0 → 4
+Minimum Latency (best found): 2
+First iteration where best-so-far reached Dijkstra optimum: 0
+Iteration of global best update: 0
+
+
+========================================================================
+Case 2 — Dijkstra (deterministic shortest path)
+========================================================================
+Best Path: 0 → 3
+Minimum Latency: 3
+
+--- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5), explore_prob=0.05 ---
+Best Path: 0 → 3
+Minimum Latency (best found): 3
+First iteration where best-so-far reached Dijkstra optimum: 6
+Iteration of global best update: 6
+
+--- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3), explore_prob=0.05 ---
+Best Path: 0 → 3
+Minimum Latency (best found): 3
+First iteration where best-so-far reached Dijkstra optimum: 0
+Iteration of global best update: 0
+
+
+========================================================================
+(b)-(c) Observations: scenarios, convergence, and parameters
+========================================================================
+Implementation notes: η_ij = 1/latency_ij. Ant steps follow the standard pheromone×heuristic rule with probability 1−ε, else uniform exploration (ε=0.05). τ floors relative to τ0 preserve rare arcs.
+Convergence: higher β emphasises cheap edges early; higher α boosts τ memory; ρ controls forgetting. Compare the per-case first-hit iteration lines above for empirical timing.
+- Case 1 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first optimum-hit iteration 0, matched Dijkstra = True.
+- Case 1 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first optimum-hit iteration 0, matched Dijkstra = True.
+- Case 2 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first optimum-hit iteration 6, matched Dijkstra = True.
+- Case 2 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first optimum-hit iteration 0, matched Dijkstra = True.
+Comparison to Dijkstra: Dijkstra yields certified minima under nonnegative weights whenever the PQ capacity suffices; ACO is heuristic and stochastic.
+Parameter effects: α → trail exploitation, β → latency greed, ρ → forgetting.
+Worksheet illustrative outputs sometimes disagree with nonnegative SSSP when latent constraints differ; evaluator files here override such samples.
+
+(mdp alt modelling is inside design pdf if marker asks)
+
