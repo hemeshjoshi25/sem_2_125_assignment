@@ -1,41 +1,34 @@
-# inputPS13.txt — routing evaluation deck (paired with OUTPUT file below).
-# Extend / replace this file entirely for hidden tests; graphs & hyper-parameters load here.
-
-BEGIN_GLOBAL
-OUTPUT outputPS13.txt
-MAX_EDGES 8192
-PQ_CAPACITY NONE
-ANT_PATH_CAPACITY NONE
-ITERATIONS 300
-SEED 42
-EXPLORE_PROB 0.05
-ANTS_S1 10
-ALPHA_S1 1.0
-BETA_S1 2.0
-RHO_S1 0.5
-ANTS_S2 10
-ALPHA_S2 2.5
-BETA_S2 1.0
-RHO_S2 0.3
-END_GLOBAL
-
-Case 1
-S 0
-T 4
-0 1 2
-0 2 4
-1 2 1
-1 3 7
-2 4 3
-3 4 1
-0 4 2
-
-Case 2
-S 0
-T 3
-0 1 1
-1 2 2
-0 2 5
-2 3 1
-1 3 4
-0 3 3
+# Multiple case graphs after GLOBAL. Each block: case name, then u v latency rows.
+# Same (s, t) is prompted once at runtime and applied to every Case graph.
+
+BEGIN_GLOBAL
+OUTPUT outputPS13.txt
+ITERATIONS 300
+SEED 42
+EXPLORE_PROB 0.05
+ANTS_S1 10
+ALPHA_S1 1.0
+BETA_S1 2.0
+RHO_S1 0.5
+ANTS_S2 10
+ALPHA_S2 2.5
+BETA_S2 1.0
+RHO_S2 0.3
+END_GLOBAL
+
+Case 1
+0 1 2
+0 2 4
+1 2 1
+1 3 7
+2 4 3
+3 4 1
+0 4 2
+
+Case 2
+0 1 1
+1 2 2
+0 2 5
+2 3 1
+1 3 4
+0 3 3

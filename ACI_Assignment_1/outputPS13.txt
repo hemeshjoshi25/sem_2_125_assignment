@@ -1,73 +1,67 @@
-ROUTING SUMMARY (latency-optimal deterministic paths unless disconnected)
-SOURCE INPUT: C:\Users\suksarkar.CORP\Documents\sem2 projects\DRL\inputPS13.txt
-========================================================================
+ROUTING SUMMARY — Dijkstra vs ACO (two scenarios)
+INPUT FILE: C:\Users\suksarkar.CORP\Documents\sem2 projects\ACI_Assignment_1\inputPS13.txt
+
 Case 1
 Best Path: 0 → 4
 Minimum Latency: 2
 
 Case 2
-Best Path: 0 → 3
-Minimum Latency: 3
+Best Path: (no path)
+Minimum Latency: inf
 
 ========================================================================
 (a) PEAS for the routing agent
 ========================================================================
 
-Performance measure: minimise end-to-end transmission latency on the delivered path s→t; secondary metrics include iterations-to-optimum and stability of the recommended walk.
-Environment: dynamic undirected latency graph; source/destination vary per evaluator file; artificial ants act in parallel each macro-iteration.
-Actuators: commit ordered router sequences; apply evaporation/deposit pheromone operators on traversed edges.
-Sensors: incident neighbour IDs, per-link latency, stored τ values, and heuristic η=1/latency derived from sensed weights.
+Performance measure: minimise end-to-end latency on path s→t; track iterations until the best-found path matches Dijkstra’s optimum.
+Environment: weighted undirected router graph; source and destination are entered at runtime (not taken from the input file).
+Actuators: choose next-hop routers; evaporate/deposit pheromone on edges.
+Sensors: neighbour IDs, edge latencies, pheromone τ, heuristic η = 1/latency.
 
 ========================================================================
-Case 1 — Dijkstra (deterministic shortest path)
+Case 1 — ACO detailed results
 ========================================================================
-Best Path: 0 → 4
-Minimum Latency: 2
 
---- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5), explore_prob=0.05 ---
+--- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5) ---
 Best Path: 0 → 4
 Minimum Latency (best found): 2
-First iteration where best-so-far reached Dijkstra optimum: 0
-Iteration of global best update: 0
+First iteration where best-so-far matched Dijkstra optimum: 0
+Iteration of global best tour: 0
 
---- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3), explore_prob=0.05 ---
+--- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3) ---
 Best Path: 0 → 4
 Minimum Latency (best found): 2
-First iteration where best-so-far reached Dijkstra optimum: 0
-Iteration of global best update: 0
+First iteration where best-so-far matched Dijkstra optimum: 0
+Iteration of global best tour: 0
 
 
 ========================================================================
-Case 2 — Dijkstra (deterministic shortest path)
+Case 2 — ACO detailed results
 ========================================================================
-Best Path: 0 → 3
-Minimum Latency: 3
 
---- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5), explore_prob=0.05 ---
-Best Path: 0 → 3
-Minimum Latency (best found): 3
-First iteration where best-so-far reached Dijkstra optimum: 6
-Iteration of global best update: 6
+--- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5) ---
+Best Path: (no path)
+Minimum Latency (best found): inf
+First iteration where best-so-far matched Dijkstra optimum: not reached in run
+Iteration of global best tour: -1
 
---- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3), explore_prob=0.05 ---
-Best Path: 0 → 3
-Minimum Latency (best found): 3
-First iteration where best-so-far reached Dijkstra optimum: 0
-Iteration of global best update: 0
+--- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3) ---
+Best Path: (no path)
+Minimum Latency (best found): inf
+First iteration where best-so-far matched Dijkstra optimum: not reached in run
+Iteration of global best tour: -1
 
 
 ========================================================================
-(b)-(c) Observations: scenarios, convergence, and parameters
+(b)-(c) Scenarios vs Dijkstra, convergence, parameter effects
 ========================================================================
-Implementation notes: η_ij = 1/latency_ij. Ant steps follow the standard pheromone×heuristic rule with probability 1−ε, else uniform exploration (ε=0.05). τ floors relative to τ0 preserve rare arcs.
-Convergence: higher β emphasises cheap edges early; higher α boosts τ memory; ρ controls forgetting. Compare the per-case first-hit iteration lines above for empirical timing.
-- Case 1 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first optimum-hit iteration 0, matched Dijkstra = True.
-- Case 1 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first optimum-hit iteration 0, matched Dijkstra = True.
-- Case 2 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first optimum-hit iteration 6, matched Dijkstra = True.
-- Case 2 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first optimum-hit iteration 0, matched Dijkstra = True.
-Comparison to Dijkstra: Dijkstra yields certified minima under nonnegative weights whenever the PQ capacity suffices; ACO is heuristic and stochastic.
-Parameter effects: α → trail exploitation, β → latency greed, ρ → forgetting.
-Worksheet illustrative outputs sometimes disagree with nonnegative SSSP when latent constraints differ; evaluator files here override such samples.
+η_ij = 1/latency_ij; transition probability uses τ^α η^β (with exploration ε =0.05). ρ controls trail evaporation between iterations.
+- Case 1 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first iteration matching optimum 0, matched Dijkstra = True.
+- Case 1 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first iteration matching optimum 0, matched Dijkstra = True.
+- Case 2 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first iteration matching optimum never, matched Dijkstra = False.
+- Case 2 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first iteration matching optimum never, matched Dijkstra = False.
 
-(mdp alt modelling is inside design pdf if marker asks)
+α weights pheromone preference; β weights inverse-latency (short cheap edges); compare first-hit iterations above for convergence speed between scenarios.
+
+[WARN] At least one ACO run did not match Dijkstra within the iteration budget — try more ITERATIONS or higher exploration ε.
 
