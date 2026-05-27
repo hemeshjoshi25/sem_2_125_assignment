@@ -1,67 +1,11 @@
-ROUTING SUMMARY — Dijkstra vs ACO (two scenarios)
-INPUT FILE: C:\Users\suksarkar.CORP\Documents\sem2 projects\ACI_Assignment_1\inputPS13.txt
-
-Case 1
-Best Path: 0 → 4
+=== Scenario 1 ===
+Best Path: [0, 4]
 Minimum Latency: 2
 
-Case 2
-Best Path: (no path)
-Minimum Latency: inf
+=== Scenario 2 ===
+Best Path: [0, 4]
+Minimum Latency: 2
 
-========================================================================
-(a) PEAS for the routing agent
-========================================================================
-
-Performance measure: minimise end-to-end latency on path s→t; track iterations until the best-found path matches Dijkstra’s optimum.
-Environment: weighted undirected router graph; source and destination are entered at runtime (not taken from the input file).
-Actuators: choose next-hop routers; evaporate/deposit pheromone on edges.
-Sensors: neighbour IDs, edge latencies, pheromone τ, heuristic η = 1/latency.
-
-========================================================================
-Case 1 — ACO detailed results
-========================================================================
-
---- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5) ---
-Best Path: 0 → 4
-Minimum Latency (best found): 2
-First iteration where best-so-far matched Dijkstra optimum: 0
-Iteration of global best tour: 0
-
---- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3) ---
-Best Path: 0 → 4
-Minimum Latency (best found): 2
-First iteration where best-so-far matched Dijkstra optimum: 0
-Iteration of global best tour: 0
-
-
-========================================================================
-Case 2 — ACO detailed results
-========================================================================
-
---- ACO Scenario 1 (α=1.0, β=2.0, ρ=0.5) ---
-Best Path: (no path)
-Minimum Latency (best found): inf
-First iteration where best-so-far matched Dijkstra optimum: not reached in run
-Iteration of global best tour: -1
-
---- ACO Scenario 2 (α=2.5, β=1.0, ρ=0.3) ---
-Best Path: (no path)
-Minimum Latency (best found): inf
-First iteration where best-so-far matched Dijkstra optimum: not reached in run
-Iteration of global best tour: -1
-
-
-========================================================================
-(b)-(c) Scenarios vs Dijkstra, convergence, parameter effects
-========================================================================
-η_ij = 1/latency_ij; transition probability uses τ^α η^β (with exploration ε =0.05). ρ controls trail evaporation between iterations.
-- Case 1 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first iteration matching optimum 0, matched Dijkstra = True.
-- Case 1 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first iteration matching optimum 0, matched Dijkstra = True.
-- Case 2 / Scenario 1 (α=1.0, β=2.0, ρ=0.5): first iteration matching optimum never, matched Dijkstra = False.
-- Case 2 / Scenario 2 (α=2.5, β=1.0, ρ=0.3): first iteration matching optimum never, matched Dijkstra = False.
-
-α weights pheromone preference; β weights inverse-latency (short cheap edges); compare first-hit iterations above for convergence speed between scenarios.
-
-[WARN] At least one ACO run did not match Dijkstra within the iteration budget — try more ITERATIONS or higher exploration ε.
-
+=== Dijkstra Algorithm ===
+Best Path: [0, 4]
+Minimum Latency: 2
