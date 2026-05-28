@@ -1,0 +1,7 @@
+Explain ant colony optimization to find best optimal path
+
+Imagine this ants as artificial ants what would be agent in this case and what could be performance measure, environment, actuators and sensors
+
+If i want to design an algorithm with below conditions what could be the conditions 1. Minimize Overall transmission latency 2. Identify an efficient communication path 3. Lower communication cost 4. Heuristic is inverse of edge latency 5. Source and destination during execution are dynamic
+
+Design an algorithm design document draft based on this info

@@ -1,0 +1,11 @@
+=== Scenario 1 ===
+Best Path: [0, 4]
+Minimum Latency: 2
+
+=== Scenario 2 ===
+Best Path: [0, 4]
+Minimum Latency: 2
+
+=== Dijkstra Algorithm ===
+Best Path: [0, 4]
+Minimum Latency: 2
